@@ -2,7 +2,7 @@ eureka:
   client:
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://msvc-eureka:8761/eureka/
 
 server:
   port: 8080
@@ -17,22 +17,35 @@ spring:
           enabled: true
       routes:
         - id: inventory
-          uri: http://localhost:8090
+          uri: lb://msvc-inventory
           predicates:
             - Path=/api/inventory/**
         - id: products
-          uri: http://localhost:8090
+          uri: lb://msvc-inventory
           predicates:
             - Path=/api/products/**
         - id: stockware
-          uri: http://localhost:8090
+          uri: lb://msvc-inventory
           predicates:
             - Path=/api/stockware/**
         - id: warehouse
-          uri: http://localhost:8090
+          uri: lb://msvc-inventory
           predicates:
             - Path=/api/warehouse/**
         - id: authentication
-          uri: http://localhost:8081
+          uri: lb://msvc-authentication
           predicates:
             - Path=/auth/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true

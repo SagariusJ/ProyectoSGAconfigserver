@@ -6,7 +6,7 @@ spring:
     name: msvc-inventory
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/inventorydb
+    url: jdbc:postgresql://postgres-db:5432/inventorydb
     username: postgres
     password: postgres
   jpa:
@@ -19,5 +19,18 @@ eureka:
   instance:
     hostname: msvc-inventory
   client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka
+    service-url:
+      defaultZone: http://msvc-eureka:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
