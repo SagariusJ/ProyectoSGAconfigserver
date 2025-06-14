@@ -1,0 +1,38 @@
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: msvc-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: inventory
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/inventory/**
+        - id: products
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/products/**
+        - id: stockware
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/stockware/**
+        - id: warehouse
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/warehouse/**
+        - id: authentication
+          uri: http://localhost:8081
+          predicates:
+            - Path=/auth/**
