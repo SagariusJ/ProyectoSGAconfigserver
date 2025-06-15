@@ -6,9 +6,9 @@ spring:
     name: msvc-authentication
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://auth-postgres-db:5432/authenticationdb
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://authbdd.postgres.database.azure.com:5432/authbdd
+    username: saga@authbdd
+    password: Chileseba12345.
   jpa:
     hibernate:
       ddl-auto: update
