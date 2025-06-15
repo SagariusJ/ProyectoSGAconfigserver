@@ -1,14 +1,10 @@
 FROM maven:3.9.6-eclipse-temurin-17 AS build
-WORKDIR /app
+WORKDIR /app/microservice-config
 COPY . .
-
-RUN ls -la /app
-RUN cat /app/pom.xml
-
 RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:17-jre
 WORKDIR /app
-COPY --from=build /app/target/microservice-config-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/microservice-config/target/microservice-config-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8888
 ENTRYPOINT ["java", "-jar", "app.jar"]
